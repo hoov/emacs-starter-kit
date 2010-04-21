@@ -30,13 +30,12 @@
      (font-lock-regexp-grouping-backslash ((t (:foreground "#E9C062"))))
      (font-lock-regexp-grouping-construct ((t (:foreground "red"))))
      
-     (linum ((t (:background "#000000" :foreground "#666666"))))
+     (linum ((t (:background "#000000" :foreground "#A8FF60"))))
 
      (minibuffer-prompt ((t (:foreground "#888888"))))
      (ido-subdir ((t (:foreground "#CF6A4C"))))
      (ido-first-match ((t (:foreground "#8F9D6A"))))
      (ido-only-match ((t (:foreground "#8F9D6A"))))
-     (mumamo-background-chunk-submode ((t (:background "#222222"))))
      
      (font-lock-string-face ((t (:foreground "#A8FF60"))))
      (font-lock-type-face ((t (:foreground "#FFFFB6"))))
@@ -55,6 +54,7 @@
 
      ;; mumamo
      (mumamo-background-chunk-major ((t (:background "#000000"))))
+     (mumamo-background-chunk-submode ((t (:background "#222222"))))
      (mumamo-background-chunk-submode1 ((t (:background "#0A0A0A"))))
      (mumamo-background-chunk-submode2 ((t (:background "#0A0A0A"))))
      (mumamo-background-chunk-submode3 ((t (:background "#0A0A0A"))))

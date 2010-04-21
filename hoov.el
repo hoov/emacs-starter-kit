@@ -45,13 +45,19 @@
 ;; Mercurial support
 (require 'mercurial)
 
+;; Highlight the current line
+(global-hl-line-mode 1)
 
+;; Column number
+(column-number-mode)
 
-;; Pycomplexity
-;(add-to-list 'load-path (concat dotfiles-dir "/vendor/pycomplexity"))
-;(require 'linum)
-;(require 'pycomplexity)
-;(add-hook 'python-mode-hook
-;    (function (lambda ()
-;        (pycomplexity-mode)
-;        (linum-mode))))
+;; Line numbers
+(global-linum-mode 1)
+
+;; Same as linum.el, but we're adding a space after the %d
+(setq linum-format
+      (lambda (line)
+        (propertize (format
+                     (let ((w (length (number-to-string
+                                       (count-lines (point-min) (point-max))))))
+                       (concat "%" (number-to-string w) "d ")) line) 'face 'linum)))
