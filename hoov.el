@@ -12,21 +12,19 @@
 (color-theme-hoov)
 
 ;; Pymacs
-(autoload 'pymacs-apply "pymacs")
-(autoload 'pymacs-call "pymacs")
-(autoload 'pymacs-eval "pymacs" nil t)
-(autoload 'pymacs-exec "pymacs" nil t)
-(autoload 'pymacs-load "pymacs" nil t)
-(eval-after-load "pymacs"
-  '(add-to-list 'pymacs-load-path (concat dotfiles-dir "pymacs")))
-(pymacs-load "ropemacs" "rope-")
-(setq ropemacs-enable-autoimport t)
-(setq ac-ropemacs-loaded t)
+;(autoload 'pymacs-apply "pymacs")
+;(autoload 'pymacs-call "pymacs")
+;(autoload 'pymacs-eval "pymacs" nil t)
+;(autoload 'pymacs-exec "pymacs" nil t)
+;(autoload 'pymacs-load "pymacs" nil t)
+;(eval-after-load "pymacs"
+;  '(add-to-list 'pymacs-load-path (concat dotfiles-dir "pymacs")))
+;(pymacs-load "ropemacs" "rope-")
+;(setq ropemacs-enable-autoimport t)
+;(setq ac-ropemacs-loaded t)
 
-(add-hook 'python-mode-hook
-    (lambda ()
-        (local-set-key (kbd "RET") 'newline-and-indent)
-    ))
+(require 'pysmell)
+(add-hook 'python-mode-hook (lambda () (pysmell-mode 1)))
 
 ;; yasnippet
 
@@ -34,17 +32,25 @@
 (require 'yasnippet)
 (yas/initialize)
 (yas/load-directory (concat dotfiles-dir "/vendor/yasnippet/snippets"))
-;
+
 ;; Auto Complete
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/auto-complete"))
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories (concat dotfiles-dir "/vendor/auto-complete/dict"))
 (ac-config-default)
 
+(defun ac-pysmell-candidate ()
+  (pysmell-get-all-completions))
+
+(ac-define-source pysmell
+  '((candidates . ac-pysmell-candidate)
+    (symbol . "ps")))
+
 (defun ac-python-mode-setup ()
-  (ac-ropemacs-setup)
-  (setq ac-sources (append '(ac-source-yasnippet) ac-sources)))
+;  (ac-ropemacs-setup)
+  (setq ac-sources '(ac-source-yasnippet ac-source-pysmell)))
 (add-hook 'python-mode-hook 'ac-python-mode-setup)
+
 ;
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
 (require 'textmate)
@@ -56,13 +62,10 @@
 (require 'mercurial)
 
 ;; Highlight the current line
-(global-hl-line-mode 1)
+;(global-hl-line-mode 1)
 
 ;; Column number
 (column-number-mode)
-
-;; Idle highlight (wow, what a helpful comment)
-(idle-highlight)
 
 ;; Line numbers
 (global-linum-mode 1)
